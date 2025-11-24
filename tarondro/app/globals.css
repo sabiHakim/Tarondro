@@ -1,0 +1,13 @@
+@import "tailwindcss";
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}

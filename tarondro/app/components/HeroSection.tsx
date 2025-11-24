@@ -1,43 +1,99 @@
-'use client'
-import { useRef, useEffect } from 'react';
-import styles from './page.module.css'
+// components/Hero.tsx
+"use client";
+
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
 
-  const container = useRef(null);
-  const stickyMask = useRef(null);
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "top 80%",
+        scrub: 1,
+      },
+    });
 
-  const initialMaskSize = .8;
-  const targetMaskSize = 30;
-  const easing = 0.15;
-  let easedScrollProgress = 0;
+    gsap.fromTo(
+      titleRef.current,
+      { y: 200, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: "power3.out",
+      }
+    );
 
-  useEffect( () => {
-    requestAnimationFrame(animate)
-  }, [])
-
-  const animate = () => {
-    const maskSizeProgress = targetMaskSize * getScrollProgress();
-    stickyMask.current.style.webkitMaskSize = (initialMaskSize + maskSizeProgress) * 100 + "%";
-    requestAnimationFrame(animate)
-  }
-
-  const getScrollProgress = () => {
-    const scrollProgress = stickyMask.current.offsetTop / (container.current.getBoundingClientRect().height - window.innerHeight)
-    const delta = scrollProgress - easedScrollProgress;
-    easedScrollProgress += delta * easing;
-    return easedScrollProgress
-  }
+    gsap.fromTo(
+      subtitleRef.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        delay: 0.5,
+        ease: "power3.out",
+      }
+    );
+  }, []);
 
   return (
-    <main className={styles.main}>
-      <div ref={container} className={styles.container}>
-        <div ref={stickyMask} className={styles.stickyMask}>
-          <video autoPlay muted loop>
-            <source src="/medias/nature.mp4" type="video/mp4"/>
-          </video>
-        </div>
+    <section className="h-screen flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-black" />
+
+      <div className="relative z-10 text-center px-8">
+        <motion.h1
+          ref={titleRef}
+          className="text-6xl md:text-9xl font-bold tracking-tighter"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          MON AGENCE
+        </motion.h1>
+
+        <motion.p
+          ref={subtitleRef}
+          className="text-xl md:text-3xl mt-8 opacity-70"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 0.7, y: 0 }}
+          transition={{ delay: 0.8, duration: 1.2 }}
+        >
+          Création digitale • Direction artistique • Développement
+        </motion.p>
+
+        <motion.div
+          className="mt-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <a
+            href="#works"
+            className="text-sm tracking-widest border-b border-white/50 hover:border-white transition pb-1"
+          >
+            DÉCOUVRIR NOS PROJETS ↓
+          </a>
+        </motion.div>
       </div>
-    </main>
-  )
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce" />
+        </div>
+      </motion.div>
+    </section>
+  );
 }

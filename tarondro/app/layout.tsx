@@ -1,33 +1,27 @@
-// import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "./components/SmoothScroll";
-import Header from "./components/Header";
+import Navbar from "./components/NavBar";
+import SmoothScroll from "./lib/lenis";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const metadata: Metadata = {
+  title: "Mon Agence",
+  description: "Agence créative digitale",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SmoothScroll>
-          <Header />
-          {children}
-        </SmoothScroll>
+    <html lang="fr">
+      <body className={`${inter.className} bg-black text-white overflow-x-hidden`}>
+        <SmoothScroll />
+        <Navbar />
+        {children}
       </body>
     </html>
   );

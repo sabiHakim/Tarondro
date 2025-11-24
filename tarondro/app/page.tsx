@@ -1,18 +1,16 @@
-// app/page.tsx
 import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
-import ServicesSection from "./components/ServicesSection";
-import ContactSection from "./components/ContactSection";
-import Footer from "./components/Footer";
-
+import Services from "./components/Service";
+import Works from "./components/Works";
+import About from "./components/About";
+import Contact from "./components/Contact";
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <ContactSection />
-      <Footer />
+      <Services />
+      <Works />
+      <About />
+      <Contact />
     </>
   );
 }

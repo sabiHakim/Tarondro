@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-lock.yaml
+bun.lockb
+
+# Next.js build output
+.next/
+out/
+dist/
+.next/static/
+
+# Production
+build/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+*.log.*
+log/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Typescript
+*.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Next.js cache
+.next/cache/
+
+# Sentry, vercel local
+.vercel/
+.sentryclirc

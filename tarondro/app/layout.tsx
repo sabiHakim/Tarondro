@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className={`${inter.className} bg-black text-white overflow-x-hidden`}>
+      <body className={`${inter.className} text-black overflow-x-hidden`}>
         <SmoothScroll />
         <Navbar />
         {children}

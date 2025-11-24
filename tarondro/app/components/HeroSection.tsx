@@ -1,4 +1,3 @@
-// components/Hero.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -10,90 +9,76 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HeroSection() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const textRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: titleRef.current,
-        start: "top 80%",
-        scrub: 1,
-      },
-    });
-
     gsap.fromTo(
       titleRef.current,
-      { y: 200, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.5,
-        ease: "power3.out",
-      }
+      { y: 150, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.4, ease: "power3.out" }
     );
 
     gsap.fromTo(
       subtitleRef.current,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.5,
-        delay: 0.5,
-        ease: "power3.out",
-      }
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.4, delay: 0.4, ease: "power3.out" }
+    );
+
+    gsap.fromTo(
+      textRef.current,
+      { y: 60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.4, delay: 0.8, ease: "power3.out" }
     );
   }, []);
 
   return (
-    <section className="h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-black" />
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0" />
 
-      <div className="relative z-10 text-center px-8">
+      <div className="relative z-10 text-center px-6 md:px-20">
+        {/* TITRE */}
         <motion.h1
           ref={titleRef}
-          className="text-6xl md:text-9xl font-bold tracking-tighter"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          className="text-2xl md:text-5xl font-extrabold tracking-tight text-black"
         >
-          MON AGENCE
+          TARONDRO CONCEPT
         </motion.h1>
 
-        <motion.p
+        {/* SOUS-TITRE */}
+        <motion.h2
           ref={subtitleRef}
-          className="text-xl md:text-3xl mt-8 opacity-70"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 0.7, y: 0 }}
-          transition={{ delay: 0.8, duration: 1.2 }}
+          className="text-2xl md:text-4xl mt-6 text-[#558B2F] font-semibold"
         >
-          Création digitale • Direction artistique • Développement
+          Refonte de l’identité visuelle
+        </motion.h2>
+
+        {/* DESCRIPTION */}
+        <motion.p
+          ref={textRef}
+          className="text-lg md:text-2xl max-w-3xl mx-auto mt-10 text-black/80 leading-relaxed"
+        >
+          Refonte complète de l’identité visuelle de Tarondro Concept, une start-up
+          basée à Antananarivo désirant moderniser son image en 2024.  
+          L’objectif : créer une identité contemporaine, chaleureuse et authentique
+          tout en préservant l’héritage artistique du visuel.
         </motion.p>
 
+        {/* CTA */}
         <motion.div
-          className="mt-20"
+          className="mt-14"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.8 }}
         >
           <a
-            href="#works"
-            className="text-sm tracking-widest border-b border-white/50 hover:border-white transition pb-1"
+            href="#projet"
+            className="px-6 py-3 border border-[#558B2F] text-[#558B2F] hover:bg-[#558B2F] hover:text-black transition rounded-full tracking-wide"
           >
-            DÉCOUVRIR NOS PROJETS ↓
+            DÉCOUVRIR LE PROJET ↓
           </a>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce" />
-        </div>
-      </motion.div>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 // app/contact/page.tsx   ← crée ce fichier
 "use client";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Send, MapPin, Mail, Phone } from "lucide-react";
@@ -20,7 +20,7 @@ export default function ContactPage() {
     setStatus("sending");
     // Option 1 : Formspree (le plus simple – gratuit)
     try {
-      const res = await fetch("https://formspree.io/f/xblrkglb", {
+      const res = await fetch("https://formspree.io/f/xldqlena", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -40,47 +40,66 @@ export default function ContactPage() {
   return (
     <>
       {/* HERO CONTACT */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-emerald-50">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30" />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* === FOND IMAGE OPTIMISÉ + OVERLAY === */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/contact.jpeg" // ← Ton chemin d'image
+            alt="Fond hero contact - Paysage professionnel pour contacter l'équipe"
+            fill
+            className="object-cover object-center"
+            priority={true} // Charge en premier pour LCP optimal
+            sizes="100vw" // Optimise pour full viewport
+            quality={85} // Équilibre qualité/taille (défaut 75)
+          />
+          <div
+            className="absolute inset-0 bg-neutral-900/60 z-10"
+            aria-hidden="true"
+          />
+        </div>
 
-        <div className="relative z-10 text-center px-8">
+        {/* === CONTENU (inchangé) === */}
+        <div className="relative z-20 text-center px-8 max-w-7xl mx-auto">
           <motion.h1
-            className="text-6xl md:text-8xl lg:text-9xl font-black text-neutral-900"
+            className="text-5xl md:text-5xl lg:text-7xl font-black text-white drop-shadow-2xl inline-flex items-baseline flex-wrap leading-tight"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: false, amount: 0.3 }}
             variants={{
               hidden: {},
               visible: { transition: { staggerChildren: 0.08 } },
             }}
           >
+            {/* Lettres de "CONTACT" */}
             {"CONTACT".split("").map((char, i) => (
               <motion.span
                 key={i}
                 variants={{
-                  hidden: { opacity: 0, y: 100 },
+                  hidden: { opacity: 0, y: 120 },
                   visible: { opacity: 1, y: 0 },
                 }}
+                transition={{ type: "spring", stiffness: 100 }}
                 className="inline-block"
               >
                 {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
+            {/* "NOUS" en vert */}
             <motion.span
-              className="block text-[#558B2F] mt-4"
-              initial={{ opacity: 0, y: 100 }}
+              className="inline-block text-[#8BC34A] ml-6 md:ml-10 lg:ml-16 drop-shadow-lg"
+              initial={{ opacity: 0, y: 120 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
             >
               NOUS
             </motion.span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="mt-10 text-2xl text-neutral-700 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4 }}
+            className="mt-12 text-xl md:text-2xl lg:text-2xl text-white/90 font-light tracking-wide max-w-3xl mx-auto drop-shadow-md"
           >
             Parlons de votre projet. On vous répond en moins de 24h.
           </motion.p>
@@ -97,7 +116,7 @@ export default function ContactPage() {
             viewport={{ once: false }}
             className="space-y-8"
           >
-            <h2 className="text-4xl md:text-5xl font-black">
+            <h2 className="text-4xl md:text-4xl font-black">
               Envoyez-nous un message
             </h2>
 
@@ -160,74 +179,125 @@ export default function ContactPage() {
 
           {/* INFOS CONTACT */}
           <motion.div
-            initial={{ opacity: 0, x: 80 }}
+            initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false }}
-            className="space-y-12"
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{
+              duration: 1.4, // beaucoup plus long
+              ease: [0.22, 1, 0.36, 1], // ease-out-cubic ultra smooth (très utilisé dans le luxe)
+              delay: 0.2,
+            }}
+            className="space-y-16 md:space-y-20"
           >
-            <h2 className="text-4xl md:text-5xl font-black">
+            {/* Titre qui arrive lentement */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                duration: 1.6,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.4,
+              }}
+              className="text-4xl md:text-4xl lg:text-4xl font-black text-neutral-900"
+            >
               On est là pour vous
-            </h2>
+            </motion.h2>
 
-            <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-[#558B2F]/10 rounded-2xl flex items-center justify-center">
-                  <Mail className="w-8 h-8 text-[#558B2F]" />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold">Email</p>
-                  <a
-                    href="mailto:hello@tarondro.mg"
-                    className="text-900 hover:text-[#558B2F] transition"
+            <div className="space-y-12 md:space-y-16">
+              {/* Chaque bloc contact avec son propre stagger doux */}
+              {[
+                {
+                  icon: <Mail className="w-9 h-9" />,
+                  title: "Email",
+                  content: (
+                    <a
+                      href="mailto:hello@tarondro.mg"
+                      className="text-neutral-900 hover:text-[#558B2F] transition-colors duration-300"
+                    >
+                      hello@tarondro.mg
+                    </a>
+                  ),
+                },
+                {
+                  icon: <Phone className="w-9 h-9" />,
+                  title: "Téléphone",
+                  content: (
+                    <a
+                      href="tel:+261340512345"
+                      className="text-neutral-900 hover:text-[#558B2F] transition-colors duration-300"
+                    >
+                      +261 34 05 123 45
+                    </a>
+                  ),
+                },
+                {
+                  icon: <MapPin className="w-9 h-9" />,
+                  title: "Adresse",
+                  content: (
+                    <p className="text-neutral-600 leading-relaxed">
+                      Lot IVG 73 Bis Ankadindramamy
+                      <br />
+                      Antananarivo, Madagascar
+                    </p>
+                  ),
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    duration: 1.3,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.6 + index * 0.25, // stagger très doux
+                  }}
+                  className="flex items-center gap-8 group"
+                >
+                  <div
+                    className="w-20 h-20 bg-[#558B2F]/10 rounded-3xl flex items-center justify-center flex-shrink-0 
+                        transition-all duration-500 group-hover:bg-[#558B2F]/20 
+                        group-hover:scale-110"
                   >
-                    hello@tarondro.mg
-                  </a>
-                </div>
-              </div>
+                    <div className="text-[#558B2F] transition-transform duration-500 group-hover:scale-125">
+                      {item.icon}
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-[#558B2F]/10 rounded-2xl flex items-center justify-center">
-                  <Phone className="w-8 h-8 text-[#558B2F]" />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold">Téléphone</p>
-                  <a
-                    href="tel:+261340512345"
-                    className="text-neutral-900 hover:text-[#558B2F] transition"
-                  >
-                    +261 34 05 123 45
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-[#558B2F]/10 rounded-2xl flex items-center justify-center">
-                  <MapPin className="w-8 h-8 text-[#558B2F]" />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold">Adresse</p>
-                  <p className="text-neutral-600">
-                    Lot IVG 73 Bis Ankadindramamy
-                    <br />
-                    Antananarivo, Madagascar
-                  </p>
-                </div>
-              </div>
+                  <div>
+                    <p className="text-lg font-semibold text-neutral-800 mb-1">
+                      {item.title}
+                    </p>
+                    <div className="text-lg">{item.content}</div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Carte Google Maps – Antananarivo, Madagascar (centre-ville) */}
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
+            {/* Carte Google Maps – arrivée encore plus douce et avec un petit scale */}
+            <motion.div
+              initial={{ opacity: 0, y: 80, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false }}
+              transition={{
+                duration: 1.8,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 1.2,
+              }}
+              className="rounded-3xl overflow-hidden shadow-2xl mt-20"
+            >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3779.987156927613!2d47.519967614799!3d-18.909068987203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x21f07e0c0e6e6e6d%3A0x2d2e2e2e2e2e2e2e!2sAntananarivo%2C%20Madagascar!5e0!3m2!1sfr!2sfr!4v1699999999999!5m2!1sfr!2sfr"
                 width="100%"
-                height="400"
+                height="460"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full"
+                title="Notre localisation à Antananarivo"
               />
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

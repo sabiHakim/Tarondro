@@ -172,10 +172,13 @@ export default function HeroSection({
     offset: ["start start", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
- const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-emerald-50">
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-emerald-50"
+    >
       {/* Fond grain + blobs */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-tr from-[#558B2F]/5 via-transparent to-[#558B2F]/10" />
@@ -186,9 +189,12 @@ export default function HeroSection({
         </div>
       </div>
 
-      <motion.div style={{ y, opacity }} className="relative z-10 text-center px-6 md:px-12 max-w-6xl mx-auto">
+      <motion.div
+        style={{ y, opacity }}
+        className="relative z-10 text-center px-6 md:px-12 max-w-6xl mx-auto"
+      >
         {/* Titre animé lettre par lettre */}
-        <motion.h1 className="text-6xl md:text-6xl lg:text-6xl font-black tracking-tighter text-neutral-900 leading-none inline-flex flex-wrap justify-center gap-x-4 mt-35 ">
+        <motion.h1 className="text-2xl md:text-3xl lg:text-6xl font-black tracking-tighter text-neutral-900 leading-none inline-flex flex-wrap justify-center gap-x-4 mt-35 ">
           {title.split("").map((l, i) => (
             <motion.span
               key={i}
@@ -213,17 +219,36 @@ export default function HeroSection({
           ))}
         </motion.h1>
 
-        <motion.h2 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="mt-10 text-2xl md:text-4xl font-light text-neutral-700">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-10 text-2xl md:text-4xl font-light text-neutral-700"
+        >
           {subtitle}
         </motion.h2>
 
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1}} transition={{ delay: 1.2 }} className="mt-10 max-w-4xl mx-auto text-lg md:text-xl text-neutral-600 leading-relaxed">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="mt-10 max-w-4xl mx-auto text-lg md:text-xl text-neutral-600 leading-relaxed"
+        >
           {description}
         </motion.p>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} className="mt-20">
-          <a href="#projet" className="inline-flex items-center gap-4 px-10 py-5 bg-[#558B2F] text-white font-bold text-lg rounded-full hover:bg-[#446b23] shadow-2xl">
-            DÉCOUVRIR <ArrowDown className="group-hover:translate-y-1 transition" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8 }}
+          className="mt-20"
+        >
+          <a
+            href="#projet"
+            className="inline-flex items-center gap-3 px-6 py-3 bg-[#558B2F] text-white font-bold text-sm rounded-full hover:bg-[#446b23] shadow-2xl"
+          >
+            DÉCOUVRIR{" "}
+            <ArrowDown className="group-hover:translate-y-1 transition" />
           </a>
         </motion.div>
       </motion.div>

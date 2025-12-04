@@ -16,7 +16,7 @@ export default function ContextSection({
         {/* TITRE – lettre par lettre + ligne verte */}
         <div className="relative inline-block left-1/2 -translate-x-1/2 mb-20">
           <motion.h2
-            className="text-5xl md:text-5xl lg:text-7xl font-black text-center text-neutral-900"
+            className="text-3xl md:text-3xl lg:text-7xl font-black text-center text-neutral-900"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.3 }}
@@ -45,12 +45,24 @@ export default function ContextSection({
           </motion.h2>
 
           {/* Ligne verte animée */}
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "20rem" }}
+          {/* <motion.div
+            initial={{ width: -30 }}
+            whileInView={{ width: "3rem" }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
             className="h-2 bg-[#558B2F] rounded-full mt-6 mx-auto"
+          /> */}
+          <motion.div
+            initial={{ scaleX: 0 }} // commence à 0 (invisible)
+            whileInView={{ scaleX: 1 }} // s'étend jusqu'à sa vraie taille
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{
+              duration: 1.4,
+              delay: 0.7,
+              ease: [0.2, 0.8, 0.4, 1], // très doux et pro
+            }}
+            className="h-2 bg-[#558B2F] rounded-full mt-2 w-30 origin-left"
+            style={{ transformOrigin: "left center" }}
           />
         </div>
 
